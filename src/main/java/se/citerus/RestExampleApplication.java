@@ -3,6 +3,7 @@ package se.citerus;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import se.citerus.resources.HelloWorldResource;
 
 public class RestExampleApplication extends Application<RestExampleConfiguration> {
 
@@ -23,7 +24,10 @@ public class RestExampleApplication extends Application<RestExampleConfiguration
     @Override
     public void run(final RestExampleConfiguration configuration,
                     final Environment environment) {
-        // TODO: implement application
+        final HelloWorldResource resource = new HelloWorldResource(
+                configuration.getTemplate(),
+                configuration.getDefaultName()
+        );
+        environment.jersey().register(resource);
     }
-
 }
