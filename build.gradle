@@ -18,5 +18,8 @@ repositories {
 dependencies {
     compile group: 'io.dropwizard', name: 'dropwizard-core', version:'1.3.5'
 
+
+    testCompile group: 'io.dropwizard', name: 'dropwizard-testing', version:'1.3.5'
     testCompile 'junit:junit:4.12'
+    testCompile 'org.assertj:assertj-core:latest'
 }
