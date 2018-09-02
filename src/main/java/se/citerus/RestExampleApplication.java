@@ -4,6 +4,7 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import se.citerus.resources.HelloWorldResource;
+import se.citerus.resources.KeyResource;
 
 public class RestExampleApplication extends Application<RestExampleConfiguration> {
 
@@ -24,10 +25,12 @@ public class RestExampleApplication extends Application<RestExampleConfiguration
     @Override
     public void run(final RestExampleConfiguration configuration,
                     final Environment environment) {
-        final HelloWorldResource resource = new HelloWorldResource(
+        final HelloWorldResource helloWorldResource = new HelloWorldResource(
                 configuration.getTemplate(),
                 configuration.getDefaultName()
         );
-        environment.jersey().register(resource);
+        final KeyResource keyResource = new KeyResource();
+        environment.jersey().register(helloWorldResource);
+        environment.jersey().register(keyResource);
     }
 }
