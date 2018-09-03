@@ -10,6 +10,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Path("/keys")
@@ -31,5 +32,17 @@ public class KeyResource {
         Key key = new Key(counter.getAndIncrement(), name, cutting);
         keys.add(key);
         return Response.created(URI.create("/api/keys/" + key.id)).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response getKey(@PathParam("id") Integer id) {
+        Optional<Key> keyOptional = keys.stream().filter(k -> k.id == id).findFirst();
+        return keyOptional.isPresent() ? Response.ok(keyOptional.get()).build() : Response.status(404).build();
+    }
+
+    @GET
+    public Response getKeys() {
+        return Response.ok(keys).build();
     }
 }
