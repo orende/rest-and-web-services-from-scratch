@@ -4,8 +4,7 @@ import org.apache.commons.lang3.Validate;
 import se.citerus.api.Key;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,6 +31,16 @@ public class KeyResource {
         Key key = new Key(counter.getAndIncrement(), name, cutting);
         keys.add(key);
         return Response.created(URI.create("/api/keys/" + key.id)).build();
+    }
+
+    @PUT
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateKey(@PathParam("id") String id, String body, @Context HttpHeaders headers) {
+        System.out.println(id);
+        System.out.println(body);
+        System.out.println(headers.getRequestHeader("Content-Type"));
+        return Response.ok().build();
     }
 
     @GET
